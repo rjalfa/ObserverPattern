@@ -10,7 +10,7 @@ public class MainClass {
 	
 	public static double getRandomTemp()
 	{
-		rand_time = (System.nanoTime())%151;
+		rand_time = (System.nanoTime())%51;
 		System.out.println("Randomly generated temperature: " + rand_time);
 		return rand_time;
 	}
