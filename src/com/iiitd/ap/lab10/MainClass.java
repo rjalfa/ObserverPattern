@@ -26,6 +26,36 @@ public class MainClass {
 			j.subject = sensor;
 		}
 		//Running the application
-		(new Thread(sensor)).start();
+		
+		Thread t1 = (new Thread(new Runnable()
+			{
+				public void run()
+				{
+					Thread.sleep(5000);
+					sensor.updateState(MainClass.getRandomTemp(),0);
+				}
+			}
+		));
+		Thread t2 = (new Thread(new Runnable()
+			{
+				public void run()
+				{
+					Thread.sleep(5000);
+					sensor.updateState(MainClass.getRandomTemp(),1);
+				}
+			}
+		));
+		Thread t3 = (new Thread(new Runnable()
+			{
+				public void run()
+				{
+					Thread.sleep(5000);
+					sensor.updateState(MainClass.getRandomTemp(),0);
+				}
+			}
+		));
+		t1.start();
+		t2.start();
+		t3.start();
 	}
 }
