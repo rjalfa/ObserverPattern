@@ -2,7 +2,7 @@ package com.iiitd.ap.lab10;
 
 import java.util.Vector;
 
-public class TemperatureSensor {
+public class TemperatureSensor implements Runnable {
 	private Vector<Observer> observers;
 	private Vector<TemperatureLog> states;
 	public TemperatureSensor()
@@ -14,18 +14,38 @@ public class TemperatureSensor {
 		states.add(new TemperatureLog(35,"Srinagar"));
 	}
 	
-	public synchronized Vector<TemperatureLog> getStates()
+	public Vector<TemperatureLog> getStates()
 	{
 		return this.states;
 	}
 	
-	public synchronized void register(Observer observer)
+	public void register(Observer observer)
 	{
 		this.observers.add(observer);
 	}
 	
-	public synchronized void pingObservers()
+	public void pingObservers()
 	{
 		for(Observer observer : observers) observer.update();
+	}
+	
+	private void updateState()
+	{
+		//..
+		this.pingObservers();
+	}
+
+	@Override
+	public void run() {
+		try {
+			while(true)
+			{
+				Thread.sleep(5);
+				this.updateState();
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
