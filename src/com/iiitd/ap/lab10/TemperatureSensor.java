@@ -2,7 +2,7 @@ package com.iiitd.ap.lab10;
 
 import java.util.Vector;
 
-public class TemperatureSensor implements Runnable {
+public class TemperatureSensor implements Runnable,Subject {
 	private Vector<Observer> observers;
 	private Vector<TemperatureLog> states;
 	public TemperatureSensor(double temp)
@@ -34,17 +34,22 @@ public class TemperatureSensor implements Runnable {
 	{
 		this.states.get(i).setTemperature(new_temp);
 	}
-
+	
+	public void notifyObservers()
+	{
+		this.updateState(MainClass.getRandomTemp(),0);
+		this.updateState(MainClass.getRandomTemp(),1);
+		this.updateState(MainClass.getRandomTemp(),2);
+		this.pingObservers();
+	}
+	
 	@Override
 	public void run() {
 		try {
 			while(true)
 			{
 				Thread.sleep(5000);
-				this.updateState(MainClass.getRandomTemp(),0);
-				this.updateState(MainClass.getRandomTemp(),1);
-				this.updateState(MainClass.getRandomTemp(),2);
-				this.pingObservers();
+				this.notifyObservers();
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
