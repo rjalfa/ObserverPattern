@@ -4,19 +4,16 @@ import java.util.Vector;
 
 public class TemperatureSensor implements Runnable {
 	private Vector<Observer> observers;
-	private Vector<TemperatureLog> states;
-	public TemperatureSensor()
+	private TemperatureLog state;
+	public TemperatureSensor(double temp,String city)
 	{
 		observers = new Vector<>();
-		states = new Vector<>();
-		states.add(new TemperatureLog(35,"Delhi"));
-		states.add(new TemperatureLog(35,"Mumbai"));
-		states.add(new TemperatureLog(35,"Srinagar"));
+		state = new TemperatureLog(temp,city);
 	}
 	
-	public Vector<TemperatureLog> getStates()
+	public TemperatureLog getState()
 	{
-		return this.states;
+		return this.state;
 	}
 	
 	public void register(Observer observer)
@@ -24,14 +21,14 @@ public class TemperatureSensor implements Runnable {
 		this.observers.add(observer);
 	}
 	
-	public void pingObservers()
+	private void pingObservers()
 	{
 		for(Observer observer : observers) observer.update();
 	}
 	
-	private void updateState()
+	private void updateState(double new_temp)
 	{
-		//..
+		this.state.setTemperature(new_temp);
 		this.pingObservers();
 	}
 
@@ -41,7 +38,7 @@ public class TemperatureSensor implements Runnable {
 			while(true)
 			{
 				Thread.sleep(5);
-				this.updateState();
+				//this.updateState();
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
