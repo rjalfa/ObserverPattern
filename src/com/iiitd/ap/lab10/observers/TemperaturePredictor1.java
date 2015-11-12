@@ -11,21 +11,15 @@ public class TemperaturePredictor1 extends Observer {
 	private CircularFifoQueue<Double> sri_temp = new CircularFifoQueue<>(5);
 	
 	@Override
-	public synchronized void update() {
-		this.states = this.subject.getStates();
-		for(TemperatureLog i : states)
+	public synchronized void update(int id) {
+		states = this.subject.getStates();
+		temp_log = states.get(id);
+		switch(temp_log.getCity())
 		{
-			switch(i.getCity())
-			{
-				case "Delhi" : delhi_temp.add(i.getTemperature()); break;
-				case "Mumbai" : mum_temp.add(i.getTemperature()); break;
-				case "Srinagar" : sri_temp.add(i.getTemperature()); break;
-			}
+			case "Delhi" : delhi_temp.add(temp_log.getTemperature()); calcTemp("Delhi", delhi_temp); break;
+			case "Mumbai" : mum_temp.add(temp_log.getTemperature()); calcTemp("Mumbai", mum_temp); break;
+			case "Srinagar" : sri_temp.add(temp_log.getTemperature()); calcTemp("Srinagar", sri_temp); break;
 		}
-		calcTemp("Delhi", delhi_temp); 
-		calcTemp("Mumbai", mum_temp); 
-		calcTemp("Srinagar", sri_temp);
-		System.out.println("---------------");
 		System.out.println();
 	}
 	
@@ -36,6 +30,6 @@ public class TemperaturePredictor1 extends Observer {
 		{
 			avg += temp;
 		}
-		System.out.println("Predicted temperature (by TemperaturePredictor1) for " + city + " is: " + avg/((double)5));
+		System.out.println("Predicted temperature (by TemperaturePredictor1) for " + city + " is: " + avg/((double)city_temp.size()));
 	}
 }

@@ -18,19 +18,15 @@ public class TemperaturePredictor2 extends Observer {
 	private Random r;
 	
 	@Override
-	public synchronized void update() {
+	public synchronized void update(int id) {
 		states = this.subject.getStates();
-		for(TemperatureLog i : states)
-		switch(i.getCity())
+		temp_log = states.get(id);
+		switch(temp_log.getCity())
 		{
-			case "Delhi" : delhi_temp.add(i.getTemperature()); break;
-			case "Mumbai" : mum_temp.add(i.getTemperature()); break;
-			case "Srinagar" : sri_temp.add(i.getTemperature()); break;
+			case "Delhi" : delhi_temp.add(temp_log.getTemperature()); calcTemp("Delhi", delhi_temp); break;
+			case "Mumbai" : mum_temp.add(temp_log.getTemperature()); calcTemp("Mumbai", mum_temp); break;
+			case "Srinagar" : sri_temp.add(temp_log.getTemperature()); calcTemp("Srinagar", sri_temp); break;
 		}
-		calcTemp("Delhi", delhi_temp); 
-		calcTemp("Mumbai", mum_temp); 
-		calcTemp("Srinagar", sri_temp); 
-		System.out.println("---------------");
 		System.out.println();
 	}
 	
@@ -43,9 +39,9 @@ public class TemperaturePredictor2 extends Observer {
 		for(double temp: city_temp )
 		{
 			if(temp <= min)
-				temp=min;
+				min=temp;
 			if(temp >= max)
-				temp=max;
+				max=temp;
 		}
 		
 		res = min + (max-min)*r.nextDouble();

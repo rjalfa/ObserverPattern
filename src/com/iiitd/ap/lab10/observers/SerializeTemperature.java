@@ -9,13 +9,15 @@ import com.iiitd.ap.lab10.TemperatureLog;
 
 public class SerializeTemperature extends Observer {
 	@Override
-	public  synchronized void update() {
+	public  synchronized void update(int id) {
 		long time_now = Calendar.getInstance().get(Calendar.MILLISECOND);
+		states = this.subject.getStates();
+		temp_log = states.get(id);
 		try{
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(""+time_now));
-			for(TemperatureLog i : this.subject.getStates()) out.writeObject(i);
+			out.writeObject(temp_log);
 			out.close();
-			System.out.println("Successfully serialized and stored TemperatureLog Objects\n--------------------");
+			System.out.println("Successfully serialized and stored TemperatureLog Object for " + city_map.get(id));
 		}
 		catch (Exception e)
 		{

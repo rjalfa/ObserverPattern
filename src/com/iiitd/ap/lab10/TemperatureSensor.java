@@ -2,7 +2,7 @@ package com.iiitd.ap.lab10;
 
 import java.util.Vector;
 
-public class TemperatureSensor implements Runnable,Subject {
+public class TemperatureSensor implements Subject {
 	private Vector<Observer> observers;
 	private Vector<TemperatureLog> states;
 	public TemperatureSensor(double temp)
@@ -10,9 +10,11 @@ public class TemperatureSensor implements Runnable,Subject {
 		observers = new Vector<>();
 		states = new Vector<>();
 		states.add(new TemperatureLog(temp,"Delhi"));
+		pingObservers(0);
 		states.add(new TemperatureLog(temp,"Mumbai"));
+		pingObservers(1);
 		states.add(new TemperatureLog(temp,"Srinagar"));
-		
+		pingObservers(2);
 	}
 	
 	public Vector<TemperatureLog> getStates()
@@ -25,35 +27,15 @@ public class TemperatureSensor implements Runnable,Subject {
 		this.observers.add(observer);
 	}
 	
-	private void pingObservers()
+	private void pingObservers(int i)
 	{
-		for(Observer observer : observers) observer.update();
+		for(Observer observer : observers) observer.update(i);
 	}
 	
-	private void updateState(double new_temp,int i)
+	void updateState(double new_temp,int i)
 	{
 		this.states.get(i).setTemperature(new_temp);
+		this.pingObservers(i);
 	}
-	
-	public void notifyObservers()
-	{
-		this.updateState(MainClass.getRandomTemp(),0);
-		this.updateState(MainClass.getRandomTemp(),1);
-		this.updateState(MainClass.getRandomTemp(),2);
-		this.pingObservers();
-	}
-	
-	@Override
-	public void run() {
-		try {
-			while(true)
-			{
-				Thread.sleep(5000);
-				this.notifyObservers();
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 }
