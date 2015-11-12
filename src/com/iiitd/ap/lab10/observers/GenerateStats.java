@@ -1,7 +1,7 @@
 package com.iiitd.ap.lab10.observers;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Vector;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
@@ -17,10 +17,10 @@ public class GenerateStats extends Observer {
 	private double max;
 	private double min;
 	private double avg;
-	private ArrayList<Double> sort_median;
+	private Vector<Double> sort_median;
 	
 	@Override
-	public void update() {
+	public synchronized void update() {
 		state = this.subject.getState();
 		switch(state.getCity())
 		{
@@ -39,7 +39,7 @@ public class GenerateStats extends Observer {
 		min=999999;
 		avg=0;
 		
-		sort_median = new ArrayList<>();
+		sort_median = new Vector<>();
 		
 		for(Double temp: city_temp)
 		{
@@ -50,9 +50,9 @@ public class GenerateStats extends Observer {
 			avg+=temp;
 			sort_median.add(temp);
 		}
-		
+
 		Collections.sort(sort_median);
-		
+		if(sort_median.size() == 0) return;
 		System.out.println("Stats for " + city);
 		System.out.println("Mean temperature: " + avg);
 		System.out.println("Median temperature: " + calcMedian(sort_median));
@@ -63,7 +63,7 @@ public class GenerateStats extends Observer {
 		
 	}
 	
-	public static double calcMedian(ArrayList<Double> list)
+	public static double calcMedian(Vector<Double> list)
 	{
 		int middle = list.size()/2;
 		if(list.size()%2 == 1){

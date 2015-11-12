@@ -13,7 +13,7 @@ public class TemperaturePredictor1 extends Observer {
 	private TemperatureLog state;
 	
 	@Override
-	public void update() {
+	public synchronized void update() {
 		state = this.subject.getState();
 		switch(state.getCity())
 		{
@@ -38,5 +38,4 @@ public class TemperaturePredictor1 extends Observer {
 		}
 		System.out.println("Predicted temperature (by TemperaturePredictor1) for " + city + " is: " + avg/((double)5));
 	}
-
 }

@@ -37,8 +37,8 @@ public class TemperatureSensor implements Runnable {
 		try {
 			while(true)
 			{
-				Thread.sleep(5);
-				//this.updateState();
+				Thread.sleep(5000);
+				this.updateState(MainClass.getRandomTemp());
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

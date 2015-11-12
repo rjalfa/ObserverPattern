@@ -6,6 +6,12 @@ import com.iiitd.ap.lab10.observers.TemperaturePredictor1;
 import com.iiitd.ap.lab10.observers.TemperaturePredictor2;
 
 public class MainClass {
+	
+	public static double getRandomTemp()
+	{
+		return 35.0;
+	}
+	
 	public static void main(String[] args)
 	{
 		Observer[] observers = new Observer[4];
@@ -20,6 +26,13 @@ public class MainClass {
 		for(TemperatureSensor i : sensors) for(Observer j : observers)
 		{
 			i.register(j);
+			j.subject = i;
 		}
+		//Running the application
+		for(TemperatureSensor i : sensors)
+		{
+			(new Thread(i)).start();
+		}
+		//(new Thread(sensors[0])).start();
 	}
 }

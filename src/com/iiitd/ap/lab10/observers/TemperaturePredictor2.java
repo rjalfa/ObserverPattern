@@ -19,7 +19,7 @@ public class TemperaturePredictor2 extends Observer {
 	private Random r;
 	
 	@Override
-	public void update() {
+	public synchronized void update() {
 		state = this.subject.getState();
 		switch(state.getCity())
 		{

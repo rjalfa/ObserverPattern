@@ -8,7 +8,7 @@ import com.iiitd.ap.lab10.Observer;
 
 public class SerializeTemperature extends Observer {
 	@Override
-	public void update() {
+	public  synchronized void update() {
 		long time_now = Calendar.getInstance().get(Calendar.MILLISECOND);
 		try{
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(""+time_now));
