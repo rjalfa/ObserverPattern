@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.util.Calendar;
 
 import com.iiitd.ap.lab10.Observer;
+import com.iiitd.ap.lab10.TemperatureLog;
 
 public class SerializeTemperature extends Observer {
 	@Override
@@ -12,9 +13,9 @@ public class SerializeTemperature extends Observer {
 		long time_now = Calendar.getInstance().get(Calendar.MILLISECOND);
 		try{
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(""+time_now));
-			out.writeObject(this.subject.getState());
+			for(TemperatureLog i : this.subject.getStates()) out.writeObject(i);
 			out.close();
-			System.out.print("Successfully serialized and stored TemperatureLog Object");
+			System.out.println("Successfully serialized and stored TemperatureLog Objects\n--------------------");
 		}
 		catch (Exception e)
 		{

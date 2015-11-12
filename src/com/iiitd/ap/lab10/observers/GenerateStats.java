@@ -13,7 +13,6 @@ public class GenerateStats extends Observer {
 	private CircularFifoQueue<Double> mum_temp = new CircularFifoQueue<>(100);
 	private CircularFifoQueue<Double> sri_temp = new CircularFifoQueue<>(100);	
 	
-	private TemperatureLog state;
 	private double max;
 	private double min;
 	private double avg;
@@ -21,12 +20,13 @@ public class GenerateStats extends Observer {
 	
 	@Override
 	public synchronized void update() {
-		state = this.subject.getState();
-		switch(state.getCity())
+		states = this.subject.getStates();
+		for(TemperatureLog i : states)
+		switch(i.getCity())
 		{
-			case "Delhi" : delhi_temp.add(state.getTemperature()); break;
-			case "Mumbai" : mum_temp.add(state.getTemperature()); break;
-			case "Srinagar" : sri_temp.add(state.getTemperature()); break;
+			case "Delhi" : delhi_temp.add(i.getTemperature()); break;
+			case "Mumbai" : mum_temp.add(i.getTemperature()); break;
+			case "Srinagar" : sri_temp.add(i.getTemperature()); break;
 		}
 		calcStats("Delhi", delhi_temp); 
 		calcStats("Mumbai", mum_temp); 
