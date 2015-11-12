@@ -1,5 +1,11 @@
 package com.iiitd.ap.lab10;
 
+/*
+ * @Rounaq Jhunjhunu Wala - 2014089
+ * @Shrey Bagroy - 2014099
+ */
+
+
 import com.iiitd.ap.lab10.observers.GenerateStats;
 import com.iiitd.ap.lab10.observers.SerializeTemperature;
 import com.iiitd.ap.lab10.observers.TemperaturePredictor1;
@@ -28,6 +34,9 @@ public class MainClass {
 			sensor.register(j);
 			j.subject = sensor;
 		}
+		
+		for(int id=0;id<3;id++)
+			sensor.pingObservers(id);
 		//Running the application
 		
 		Thread t1 = (new Thread(new Runnable()

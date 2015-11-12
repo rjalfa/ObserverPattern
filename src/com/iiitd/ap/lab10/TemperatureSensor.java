@@ -1,5 +1,10 @@
 package com.iiitd.ap.lab10;
 
+/*
+ * @Rounaq Jhunjhunu Wala - 2014089
+ * @Shrey Bagroy - 2014099
+ */
+
 import java.util.Vector;
 
 public class TemperatureSensor implements Subject {
@@ -10,11 +15,8 @@ public class TemperatureSensor implements Subject {
 		observers = new Vector<>();
 		states = new Vector<>();
 		states.add(new TemperatureLog(temp,"Delhi"));
-		pingObservers(0);
 		states.add(new TemperatureLog(temp,"Mumbai"));
-		pingObservers(1);
 		states.add(new TemperatureLog(temp,"Srinagar"));
-		pingObservers(2);
 	}
 	
 	public Vector<TemperatureLog> getStates()
@@ -27,7 +29,7 @@ public class TemperatureSensor implements Subject {
 		this.observers.add(observer);
 	}
 	
-	private void pingObservers(int i)
+	public void pingObservers(int i)
 	{
 		for(Observer observer : observers) observer.update(i);
 	}
