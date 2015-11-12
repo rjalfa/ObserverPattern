@@ -5,7 +5,6 @@ import java.io.ObjectOutputStream;
 import java.util.Calendar;
 
 import com.iiitd.ap.lab10.Observer;
-import com.iiitd.ap.lab10.TemperatureLog;
 
 public class SerializeTemperature extends Observer {
 	@Override

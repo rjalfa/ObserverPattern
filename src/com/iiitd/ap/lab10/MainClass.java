@@ -1,7 +1,5 @@
 package com.iiitd.ap.lab10;
 
-import java.util.Calendar;
-
 import com.iiitd.ap.lab10.observers.GenerateStats;
 import com.iiitd.ap.lab10.observers.SerializeTemperature;
 import com.iiitd.ap.lab10.observers.TemperaturePredictor1;
@@ -36,12 +34,15 @@ public class MainClass {
 			{
 				public void run()
 				{
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					while(true)
+					{	
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						sensor.updateState(MainClass.getRandomTemp(),0);
 					}
-					sensor.updateState(MainClass.getRandomTemp(),0);
 				}
 			}
 		));
@@ -49,12 +50,15 @@ public class MainClass {
 			{
 				public void run()
 				{
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					while(true)
+					{
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						sensor.updateState(MainClass.getRandomTemp(),1);
 					}
-					sensor.updateState(MainClass.getRandomTemp(),1);
 				}
 			}
 		));
@@ -62,12 +66,15 @@ public class MainClass {
 			{
 				public void run()
 				{
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					while(true)
+					{
+						try {
+							Thread.sleep(5000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						sensor.updateState(MainClass.getRandomTemp(),0);
 					}
-					sensor.updateState(MainClass.getRandomTemp(),0);
 				}
 			}
 		));

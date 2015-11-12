@@ -6,7 +6,6 @@ import java.util.Vector;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import com.iiitd.ap.lab10.Observer;
-import com.iiitd.ap.lab10.TemperatureLog;
 
 public class GenerateStats extends Observer {
 	private CircularFifoQueue<Double> delhi_temp = new CircularFifoQueue<>(100);
