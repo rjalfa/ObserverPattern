@@ -7,10 +7,10 @@ import com.iiitd.ap.lab10.observers.TemperaturePredictor2;
 
 public class MainClass {
 	private static double rand_time;
-	
+	private static final int WAIT_TIME = 5000;
 	public static double getRandomTemp()
 	{
-		rand_time = (System.nanoTime())%51;
+		rand_time = ((System.nanoTime())%5100)/100.00;
 		System.out.println("Randomly generated temperature: " + rand_time);
 		return rand_time;
 	}
@@ -37,7 +37,7 @@ public class MainClass {
 					while(true)
 					{	
 						try {
-							Thread.sleep(5000);
+							Thread.sleep(WAIT_TIME);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -53,7 +53,7 @@ public class MainClass {
 					while(true)
 					{
 						try {
-							Thread.sleep(5000);
+							Thread.sleep(WAIT_TIME);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -69,11 +69,11 @@ public class MainClass {
 					while(true)
 					{
 						try {
-							Thread.sleep(5000);
+							Thread.sleep(WAIT_TIME);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-						sensor.updateState(MainClass.getRandomTemp(),0);
+						sensor.updateState(MainClass.getRandomTemp(),2);
 					}
 				}
 			}
